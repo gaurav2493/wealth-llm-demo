@@ -1,4 +1,6 @@
 backend/target/
+mcp-server/target/
+mcp-server/dependency-reduced-pom.xml
 *.class
 *.jar
 *.log
