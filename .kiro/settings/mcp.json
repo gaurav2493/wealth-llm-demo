@@ -1,0 +1,19 @@
+{
+    "mcpServers": {
+        "wealth-management": {
+            "command": "java",
+            "args": [
+                "-jar",
+                "/Users/gauravsharma/Desktop/doc-reader/mcp-server/target/wealth-mcp-server-1.0.0.jar"
+            ],
+            "disabled": false,
+            "autoApprove": [
+                "list_clients",
+                "list_schemes",
+                "list_transactions",
+                "get_holdings",
+                "get_holdings_filtered"
+            ]
+        }
+    }
+}
