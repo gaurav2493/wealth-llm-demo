@@ -146,3 +146,119 @@ function downloadReport(type) {
 
 // --- Load all ---
 function loadAll() { loadClients(); loadSchemes(); loadTransactions(); loadHoldings(); }
+
+// --- Chat ---
+function formatTimestamp() {
+    return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function appendMessage(role, content, data) {
+    const messages = $('#chat-messages');
+    const div = document.createElement('div');
+    div.className = `chat-message ${role}`;
+    
+    let dataHtml = '';
+    if (data && data.length > 0) {
+        // Check if this is report links
+        if (data[0].url) {
+            dataHtml = renderReportLinks(data);
+        } else {
+            dataHtml = renderChatTable(data);
+        }
+    }
+    
+    div.innerHTML = `<div class="chat-bubble"><p>${escapeHtml(content)}</p>${dataHtml}<span class="chat-timestamp">${formatTimestamp()}</span></div>`;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function renderChatTable(data) {
+    if (!data || data.length === 0) return '';
+    const keys = Object.keys(data[0]);
+    let html = '<table><thead><tr>';
+    keys.forEach(k => html += `<th>${escapeHtml(k)}</th>`);
+    html += '</tr></thead><tbody>';
+    data.forEach(row => {
+        html += '<tr>';
+        keys.forEach(k => html += `<td>${row[k] != null ? escapeHtml(String(row[k])) : ''}</td>`);
+        html += '</tr>';
+    });
+    html += '</tbody></table>';
+    return html;
+}
+
+function renderReportLinks(data) {
+    let html = '<div style="margin-top:8px">';
+    data.forEach(item => {
+        html += `<a href="${escapeHtml(item.url)}" target="_blank">${escapeHtml(item.reportType)} Report</a><br>`;
+    });
+    html += '</div>';
+    return html;
+}
+
+async function sendChatMessage() {
+    const input = $('#chat-input');
+    const sendBtn = $('#chat-send-btn');
+    const message = input.value.trim();
+    
+    if (!message) return;
+    
+    // Show admin message
+    appendMessage('admin', message);
+    input.value = '';
+    
+    // Show loading indicator
+    sendBtn.disabled = true;
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'chat-message system';
+    loadingDiv.id = 'chat-loading';
+    loadingDiv.innerHTML = '<div class="chat-bubble"><div class="chat-loading"><span></span><span></span><span></span></div></div>';
+    $('#chat-messages').appendChild(loadingDiv);
+    $('#chat-messages').scrollTop = $('#chat-messages').scrollHeight;
+    
+    try {
+        const res = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message })
+        });
+        
+        // Remove loading indicator
+        const loading = document.getElementById('chat-loading');
+        if (loading) loading.remove();
+        
+        if (res.status === 401) {
+            showLogin();
+            return;
+        }
+        
+        if (!res.ok) {
+            appendMessage('system', 'Something went wrong. Please try again.');
+        } else {
+            const data = await res.json();
+            appendMessage('system', data.reply, data.data);
+        }
+    } catch (e) {
+        // Remove loading indicator
+        const loading = document.getElementById('chat-loading');
+        if (loading) loading.remove();
+        appendMessage('system', 'Connection error. Please check your network and try again.');
+    } finally {
+        sendBtn.disabled = false;
+    }
+}
+
+$('#chat-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    sendChatMessage();
+});
+
+// Set welcome message timestamp
+const welcomeTimestamp = document.querySelector('#chat-messages .chat-timestamp');
+if (welcomeTimestamp) welcomeTimestamp.textContent = formatTimestamp();

@@ -40,3 +40,19 @@ data class CapitalGain(
     val sellAmount: BigDecimal,
     val gain: BigDecimal
 )
+
+data class ChatRequest(val message: String)
+
+data class ChatResponse(
+    val reply: String,
+    val data: List<Map<String, Any?>>? = null
+)
+
+enum class Intent {
+    CLIENTS, SCHEMES, TRANSACTIONS, HOLDINGS, REPORT, UNKNOWN
+}
+
+data class IntentResult(
+    val intent: Intent,
+    val params: Map<String, String?> = emptyMap()
+)

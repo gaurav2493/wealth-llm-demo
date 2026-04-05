@@ -29,6 +29,7 @@
             <a href="#" data-tab="transactions">Transactions</a>
             <a href="#" data-tab="holdings">Holdings</a>
             <a href="#" data-tab="reports">Reports</a>
+            <a href="#" data-tab="chat">Chat</a>
             <button id="logout-btn">Logout</button>
         </nav>
 
@@ -114,6 +115,24 @@
                     <button class="report-btn" onclick="downloadReport('holdings')">Download Holdings Report</button>
                     <button class="report-btn" onclick="downloadReport('transactions')">Download Transaction Report</button>
                     <button class="report-btn" onclick="downloadReport('capital-gains')">Download Capital Gains Report</button>
+                </div>
+            </section>
+
+            <!-- Chat Tab -->
+            <section id="tab-chat" class="tab hidden">
+                <div class="chat-container">
+                    <div id="chat-messages">
+                        <div class="chat-message system">
+                            <div class="chat-bubble">
+                                <p>Welcome! I can help you query clients, schemes, transactions, holdings, and reports. Try asking something like "show me all clients" or "what are the holdings for Alice?"</p>
+                                <span class="chat-timestamp"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="chat-form" class="chat-input-form">
+                        <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off">
+                        <button type="submit" id="chat-send-btn">Send</button>
+                    </form>
                 </div>
             </section>
         </main>
