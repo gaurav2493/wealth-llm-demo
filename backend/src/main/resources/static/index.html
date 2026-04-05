@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-page" class="page">
+        <div class="login-box">
+            <h1>Wealth Management</h1>
+            <form id="login-form">
+                <label for="username">Username</label>
+                <input type="text" id="username" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+                <button type="submit">Login</button>
+                <p id="login-error" class="error"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="app" class="page hidden">
+        <nav>
+            <span class="brand">WealthMgmt</span>
+            <a href="#" data-tab="clients" class="active">Clients</a>
+            <a href="#" data-tab="schemes">Schemes</a>
+            <a href="#" data-tab="transactions">Transactions</a>
+            <a href="#" data-tab="holdings">Holdings</a>
+            <button id="logout-btn">Logout</button>
+        </nav>
+
+        <main>
+            <!-- Clients Tab -->
+            <section id="tab-clients" class="tab">
+                <h2>Clients</h2>
+                <form id="client-form" class="inline-form">
+                    <input type="text" id="client-name" placeholder="Name" required>
+                    <input type="email" id="client-email" placeholder="Email">
+                    <input type="text" id="client-phone" placeholder="Phone">
+                    <button type="submit">Add Client</button>
+                </form>
+                <table id="clients-table">
+                    <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Action</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+
+            <!-- Schemes Tab -->
+            <section id="tab-schemes" class="tab hidden">
+                <h2>Schemes</h2>
+                <form id="scheme-form" class="inline-form">
+                    <input type="text" id="scheme-name" placeholder="Name" required>
+                    <input type="text" id="scheme-type" placeholder="Type">
+                    <input type="number" id="scheme-nav" placeholder="NAV" step="0.01" required>
+                    <button type="submit">Add Scheme</button>
+                </form>
+                <table id="schemes-table">
+                    <thead><tr><th>ID</th><th>Name</th><th>Type</th><th>NAV</th><th>Action</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+
+            <!-- Transactions Tab -->
+            <section id="tab-transactions" class="tab hidden">
+                <h2>Transactions</h2>
+                <form id="transaction-form" class="inline-form">
+                    <select id="tx-client" required><option value="">Select Client</option></select>
+                    <select id="tx-scheme" required><option value="">Select Scheme</option></select>
+                    <select id="tx-type" required>
+                        <option value="buy">Buy</option>
+                        <option value="sell">Sell</option>
+                    </select>
+                    <input type="number" id="tx-units" placeholder="Units" step="0.0001" required>
+                    <input type="number" id="tx-amount" placeholder="Amount" step="0.01" required>
+                    <input type="date" id="tx-date" required>
+                    <button type="submit">Add Transaction</button>
+                </form>
+                <table id="transactions-table">
+                    <thead><tr><th>ID</th><th>Client ID</th><th>Scheme ID</th><th>Type</th><th>Units</th><th>Amount</th><th>Date</th><th>Action</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+
+            <!-- Holdings Tab -->
+            <section id="tab-holdings" class="tab hidden">
+                <h2>Holdings</h2>
+                <div class="inline-form">
+                    <select id="hold-client"><option value="">All Clients</option></select>
+                    <select id="hold-scheme"><option value="">All Schemes</option></select>
+                    <select id="hold-sort">
+                        <option value="">Default Sort</option>
+                        <option value="asc">Value Ascending</option>
+                        <option value="desc">Value Descending</option>
+                    </select>
+                    <button id="hold-filter-btn">Apply</button>
+                </div>
+                <table id="holdings-table">
+                    <thead><tr><th>Client</th><th>Scheme</th><th>Units</th><th>Holding Value</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

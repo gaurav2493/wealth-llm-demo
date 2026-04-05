@@ -1,0 +1,31 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, sans-serif; background: #f5f5f5; color: #333; }
+.hidden { display: none; }
+.error { color: #d32f2f; margin-top: 8px; }
+
+/* Login */
+.login-box { max-width: 360px; margin: 120px auto; background: #fff; padding: 32px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+.login-box h1 { margin-bottom: 24px; text-align: center; }
+.login-box label { display: block; margin-top: 12px; font-weight: 600; }
+.login-box input { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px; }
+.login-box button { width: 100%; margin-top: 20px; padding: 10px; background: #1976d2; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+
+/* Nav */
+nav { display: flex; align-items: center; gap: 16px; background: #1976d2; color: #fff; padding: 12px 24px; }
+nav .brand { font-weight: 700; font-size: 18px; margin-right: auto; }
+nav a { color: #bbdefb; text-decoration: none; padding: 4px 8px; border-radius: 4px; }
+nav a.active { color: #fff; background: rgba(255,255,255,.2); }
+nav button { background: rgba(255,255,255,.2); color: #fff; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; }
+
+/* Main */
+main { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+h2 { margin-bottom: 16px; }
+.inline-form { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.inline-form input, .inline-form select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+.inline-form button { padding: 8px 16px; background: #1976d2; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #eee; }
+th { background: #fafafa; font-weight: 600; }
+.del-btn { background: #d32f2f; color: #fff; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer; }
