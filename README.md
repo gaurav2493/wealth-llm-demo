@@ -1,5 +1,9 @@
 # Wealth Management Platform
 
+![CI](https://github.com/gaurav2493/wealth-llm-demo/actions/workflows/ci.yml/badge.svg)
+![Coverage](.github/badges/jacoco.svg)
+![Branches](.github/badges/branches.svg)
+
 A web-based wealth management system for managing clients, investment schemes, transactions, and holdings. Includes PDF report generation and an MCP (Model Context Protocol) server for AI assistant integration.
 
 ## Tech Stack
