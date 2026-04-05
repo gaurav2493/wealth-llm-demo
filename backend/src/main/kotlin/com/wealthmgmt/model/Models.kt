@@ -30,3 +30,13 @@ data class Holding(
 
 data class LoginRequest(val username: String, val password: String)
 data class ApiResponse(val message: String, val success: Boolean = true)
+
+data class CapitalGain(
+    val schemeName: String,
+    val buyDate: LocalDate,
+    val sellDate: LocalDate,
+    val units: BigDecimal,
+    val buyAmount: BigDecimal,
+    val sellAmount: BigDecimal,
+    val gain: BigDecimal
+)

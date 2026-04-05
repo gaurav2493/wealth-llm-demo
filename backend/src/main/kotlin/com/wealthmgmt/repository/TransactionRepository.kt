@@ -37,4 +37,14 @@ class TransactionRepository(private val jdbc: JdbcTemplate) {
     }
 
     fun delete(id: Long): Boolean = jdbc.update("DELETE FROM transaction WHERE id = ?", id) > 0
+
+    fun findByClientId(clientId: Long): List<Transaction> = jdbc.query(
+        "SELECT * FROM transaction WHERE client_id = ? ORDER BY date, id", { rs, _ ->
+            Transaction(
+                rs.getLong("id"), rs.getLong("client_id"), rs.getLong("scheme_id"),
+                rs.getString("type"), rs.getBigDecimal("units"), rs.getBigDecimal("amount"),
+                rs.getDate("date").toLocalDate()
+            )
+        }, clientId
+    )
 }

@@ -28,6 +28,7 @@
             <a href="#" data-tab="schemes">Schemes</a>
             <a href="#" data-tab="transactions">Transactions</a>
             <a href="#" data-tab="holdings">Holdings</a>
+            <a href="#" data-tab="reports">Reports</a>
             <button id="logout-btn">Logout</button>
         </nav>
 
@@ -101,6 +102,19 @@
                     <thead><tr><th>Client</th><th>Scheme</th><th>Units</th><th>Holding Value</th></tr></thead>
                     <tbody></tbody>
                 </table>
+            </section>
+
+            <!-- Reports Tab -->
+            <section id="tab-reports" class="tab hidden">
+                <h2>Reports</h2>
+                <div class="inline-form">
+                    <select id="report-client" required><option value="">Select Client</option></select>
+                </div>
+                <div class="report-buttons">
+                    <button class="report-btn" onclick="downloadReport('holdings')">Download Holdings Report</button>
+                    <button class="report-btn" onclick="downloadReport('transactions')">Download Transaction Report</button>
+                    <button class="report-btn" onclick="downloadReport('capital-gains')">Download Capital Gains Report</button>
+                </div>
             </section>
         </main>
     </div>

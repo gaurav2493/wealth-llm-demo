@@ -196,6 +196,38 @@ class ApiTests {
             .andExpect(jsonPath("$[0].clientName").value("John Doe"))
     }
 
+    // --- Report Tests ---
+
+    @Test @Order(46)
+    fun `download holdings report PDF`() {
+        val result = mvc.perform(get("/api/reports/holdings/$clientId").session(session!!))
+            .andExpect(status().isOk)
+            .andExpect(content().contentType("application/pdf"))
+            .andReturn()
+        assertTrue(result.response.contentAsByteArray.size > 100)
+        assertTrue(result.response.getHeader("Content-Disposition")!!.contains("holdings_"))
+    }
+
+    @Test @Order(47)
+    fun `download transaction report PDF`() {
+        val result = mvc.perform(get("/api/reports/transactions/$clientId").session(session!!))
+            .andExpect(status().isOk)
+            .andExpect(content().contentType("application/pdf"))
+            .andReturn()
+        assertTrue(result.response.contentAsByteArray.size > 100)
+        assertTrue(result.response.getHeader("Content-Disposition")!!.contains("transactions_"))
+    }
+
+    @Test @Order(48)
+    fun `download capital gains report PDF`() {
+        val result = mvc.perform(get("/api/reports/capital-gains/$clientId").session(session!!))
+            .andExpect(status().isOk)
+            .andExpect(content().contentType("application/pdf"))
+            .andReturn()
+        assertTrue(result.response.contentAsByteArray.size > 100)
+        assertTrue(result.response.getHeader("Content-Disposition")!!.contains("capital_gains_"))
+    }
+
     // --- Delete Tests ---
 
     @Test @Order(50)

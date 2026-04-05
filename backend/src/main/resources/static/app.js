@@ -38,6 +38,7 @@ $$('nav a[data-tab]').forEach(a => a.addEventListener('click', (e) => {
     $(`#tab-${a.dataset.tab}`).classList.remove('hidden');
     if (a.dataset.tab === 'transactions') loadDropdowns();
     if (a.dataset.tab === 'holdings') loadHoldingDropdowns();
+    if (a.dataset.tab === 'reports') loadReportDropdown();
 }));
 
 // --- CRUD helpers ---
@@ -131,6 +132,17 @@ function loadHoldings() {
     );
 }
 $('#hold-filter-btn').addEventListener('click', loadHoldings);
+
+// --- Reports ---
+async function loadReportDropdown() {
+    const clients = await api('/api/clients').then(r => r.json());
+    $('#report-client').innerHTML = '<option value="">Select Client</option>' + clients.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+}
+function downloadReport(type) {
+    const clientId = $('#report-client').value;
+    if (!clientId) { alert('Please select a client'); return; }
+    window.open(`/api/reports/${type}/${clientId}`, '_blank');
+}
 
 // --- Load all ---
 function loadAll() { loadClients(); loadSchemes(); loadTransactions(); loadHoldings(); }
