@@ -3,11 +3,12 @@ package com.wealthmgmt.repository
 import com.wealthmgmt.model.Holding
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Repository
+import java.time.LocalDate
 
 @Repository
 class HoldingRepository(private val jdbc: JdbcTemplate) {
 
-    fun getHoldings(clientId: Long?, schemeId: Long?, sortBy: String?, sortOrder: String?): List<Holding> {
+    fun getHoldings(clientId: Long?, schemeId: Long?, sortBy: String?, sortOrder: String?, asOfDate: LocalDate?): List<Holding> {
         val conditions = mutableListOf<String>()
         val params = mutableListOf<Any>()
 
@@ -18,6 +19,10 @@ class HoldingRepository(private val jdbc: JdbcTemplate) {
         if (schemeId != null) {
             conditions.add("t.scheme_id = ?")
             params.add(schemeId)
+        }
+        if (asOfDate != null) {
+            conditions.add("t.date <= ?")
+            params.add(asOfDate)
         }
 
         val where = if (conditions.isNotEmpty()) "WHERE ${conditions.joinToString(" AND ")}" else ""

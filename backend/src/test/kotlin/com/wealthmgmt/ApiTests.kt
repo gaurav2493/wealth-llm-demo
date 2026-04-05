@@ -181,6 +181,21 @@ class ApiTests {
             .andExpect(jsonPath("$[0].holdingValue").isNumber)
     }
 
+    @Test @Order(44)
+    fun `get holdings as of date before transaction returns empty`() {
+        mvc.perform(get("/api/holdings?asOfDate=2025-12-31").session(session!!))
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.length()").value(0))
+    }
+
+    @Test @Order(45)
+    fun `get holdings as of date on transaction date returns results`() {
+        mvc.perform(get("/api/holdings?asOfDate=2026-01-15").session(session!!))
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.length()").value(1))
+            .andExpect(jsonPath("$[0].clientName").value("John Doe"))
+    }
+
     // --- Delete Tests ---
 
     @Test @Order(50)

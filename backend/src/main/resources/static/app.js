@@ -124,6 +124,7 @@ function loadHoldings() {
     const params = new URLSearchParams();
     if ($('#hold-client').value) params.set('clientId', $('#hold-client').value);
     if ($('#hold-scheme').value) params.set('schemeId', $('#hold-scheme').value);
+    if ($('#hold-date').value) params.set('asOfDate', $('#hold-date').value);
     if ($('#hold-sort').value) { params.set('sortBy', 'value'); params.set('sortOrder', $('#hold-sort').value); }
     loadTable(`/api/holdings?${params}`, '#holdings-table tbody', h =>
         `<tr><td>${h.clientName}</td><td>${h.schemeName}</td><td>${h.units}</td><td>${h.holdingValue}</td></tr>`
